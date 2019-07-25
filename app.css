@@ -1,0 +1,34 @@
+body {
+  position: relative;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+}
+
+.col {
+  margin: 10px;
+}
+
+.card-wrapper {
+  margin-bottom: 15px;
+}
+
+.btn-wrapper {
+  margin-top: -30px;
+  margin-bottom: 28px;
+  margin-left: 10px;
+}
+
+.loadmore {
+  position: fixed;
+  bottom: 0; 
+  right: 0;
+  margin: 20px;
+}
+
+.loadmore button {
+  font-weight: bold;
+  color: green;
+}
