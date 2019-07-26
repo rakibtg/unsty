@@ -15,7 +15,7 @@
     <div class="col col4"></div>
   </div>
   <div class="loadmore">
-    <button onclick="populate()">More</button>
+    <button onclick="populate()">RELOAD</button>
   </div>
   <script src="./jq.slim.min.js"></script>
   <script src="./app.js"></script>
