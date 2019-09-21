@@ -9,10 +9,10 @@
 </head>
 <body>
   <div id="app">
-    <div class="col col1"></div>
-    <div class="col col2"></div>
-    <div class="col col3"></div>
-    <div class="col col4"></div>
+    <div class="col col1"><span class="holder"></span></div>
+    <div class="col col2"><span class="holder"></span></div>
+    <div class="col col3"><span class="holder"></span></div>
+    <div class="col col4"><span class="holder"></span></div>
   </div>
   <div class="loadmore">
     <button onclick="populate()">RELOAD</button>

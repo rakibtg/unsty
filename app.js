@@ -7,7 +7,7 @@ var heights = {
 var fetching = false
 var items = []
 const random = () => new Promise( async (resolve, reject) => {
-  const uniqid = 10 + totalCards
+  const uniqid = 1 + totalCards
   const response = await fetch(`https://source.unsplash.com/${uniqid}x${uniqid}/`)
   const id = response
     .url
@@ -17,7 +17,7 @@ const random = () => new Promise( async (resolve, reject) => {
     items.push(id)
     resolve({
       id,
-      thumb: `https://images.unsplash.com/${id}?ixlib=rb-1.2.1&q=80&fm=jpg&crop=resize&fit=max&w=200`,
+      thumb: `https://images.unsplash.com/${id}?ixlib=rb-1.2.1&q=80&fm=jpg&crop=resize&fit=max&w=220`,
       small: `https://images.unsplash.com/${id}?ixlib=rb-1.2.1&q=80&fm=jpg&crop=resize&fit=max&w=800`,
       large: `https://images.unsplash.com/${id}?ixlib=rb-1.2.1&q=100&fm=jpg&crop=resize&fit=max`
     })
@@ -43,38 +43,32 @@ const imageCard = (data) => {
 }
 
 const getColumn = () => {
-  let cols = {
-    'col1': 0, 'col2': 0, 'col3': 0, 'col4': 0
-  }
-  Object.keys(cols).map((col, val) => {
-    console.log('col', col)
-    const colItems = document.querySelectorAll(`.${col} .card-wrapper`)
-    console.log('colitems', colItems)
-    Object.keys(colItems).map(i => {
-      const item = colItems[i]
-      console.log('item', item)
-      cols[col] = cols[col] + item.scrollheight
-      console.log('height', item.scrollheight)
-    })
+  let cols = { 'col1': 0, 'col2': 0, 'col3': 0, 'col4': 0 }
+  Object.keys(cols).map(classNameOfCol => {
+    const colHeight = document.querySelector(`div.${classNameOfCol} .holder`).scrollHeight
+    cols[classNameOfCol] = colHeight
   })
-  console.log(cols)
+  const candidate = Math.min(...Object.values(cols))
+  let elected = null
+  Object.keys(cols).map(classNameOfCol => {
+    const heightValue = cols[classNameOfCol]
+    if(heightValue === candidate) {
+      elected = classNameOfCol
+    }
+  })
+  return elected
 }
 
 const populate = async () => {
   if(!fetching) {
     fetching = true
-    console.log('Started to collect data.')
-    let col = 1
     for ( const index of new Array(20).keys() ) {
       const data = await random()
       if(data) {
-        getColumn()
-        const colClass = 'col' + col
-        document.querySelector(`.${colClass}`).append(
+        const colName = getColumn()
+        document.querySelector(`.${colName} span.holder`).append(
           $(imageCard(data))[0]
         )
-        if(col == 4) col = 1
-        else col = col + 1
       }
       totalCards = totalCards + 1
       if(index == 19) {

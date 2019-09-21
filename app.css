@@ -32,3 +32,7 @@ body {
   font-weight: bold;
   color: green;
 }
+
+span.holder {
+  display: inline-block;
+}
